@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aoi's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* 全体のリセットと基本設定 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'M PLUS Rounded 1c', sans-serif; 
+            line-height: 1.6; 
+            color: #555; 
+            background-color: #fff0f5; /* ★背景を「極薄いピンク」に戻しました */
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; }
+
+        /* ヘッダー */
+        header { 
+            background: #fff; 
+            height: 80px; 
+            display: flex; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 10px rgba(255, 182, 193, 0.2);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #ff69b4; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 25px; }
+        nav a { text-decoration: none; color: #888; font-weight: bold; transition: 0.3s; }
+        nav a:hover { color: #ff69b4; }
+
+        /* ヒーローセクション */
+        .hero { 
+            background-color: #ffb6c1; /* ★ここが濃すぎた場合は #ffe4e1 に変えるとより薄くなります */
+            color: #fff; 
+            text-align: center; 
+            border-radius: 0 0 50px 50px;
+            padding: 100px 0;
+		background-image: repeating-linear-gradient(
+        45deg,
+        #ffb6c1,
+        #ffb6c1 20px,
+        #ffc0cb 20px,
+        #ffc0cb 40px
+    );
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* 実績セクション（Works） */
+		#works {
+    position: relative; /* ★キラキラの基準にする */
+    background-color: #fff0f5; /* 極薄いピンクの背景 */
+    overflow: hidden;    /* はみ出した飴をパッと消す魔法 */
+}
+		.works::before {
+    content: "✨"; 
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    font-size: 3rem;
+    color: #ffb6c1;
+    z-index: 1;
+}
+		.card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    /* ★キラキラした光の影（ピンクと白のグラデーション） */
+    box-shadow: 
+        0 4px 15px rgba(255, 182, 193, 0.4), /* ふわっとしたピンクの影 */
+        0 0 25px rgba(255, 255, 255, 0.8) inset; /* 内側からのキラキラした光 */
+    transition: 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* 表面の反射っぽい細い枠線 */
+    z-index: 2; /* 飴より手前に */
+}
+
+/* マウスを乗せた時の動き（ぷるんとする演出） */
+.card:hover {
+    transform: translateY(-5px) scale(1.02); /* 少し浮いて大きくなる */
+    box-shadow: 
+        0 8px 30px rgba(255, 105, 180, 0.6), /* ピンクの影を濃く */
+        0 0 35px rgba(255, 255, 255, 0.9) inset;
+    filter: brightness(1.1); /* 少し明るくする */
+}
+
+/* 3. カードの画像エリア（ Project 1 ）をキラキラさせる */
+.card-img {
+    height: 180px;
+    background: #ffe4e1; /* 薄いピンク */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; /* 文字を白に */
+    font-weight: bold;
+    /* ★表面の反射（ツヤ感）を出す */
+    background: linear-gradient(135deg, #fff5f7 0%, #ffb6c1 50%, #ff69b4 100%);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.5); /* 境界線の光 */
+}
+        #works h2 { text-align: center; color: #ff69b4; margin-bottom: 50px; }
+        .works-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+        }
+        .card { 
+            background: #fff; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: 0 10px 20px rgba(255, 182, 193, 0.15); 
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card-img { 
+            height: 180px; 
+            background: #ffe4e1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #ffb6c1; 
+            font-weight: bold;
+        }
+        .card-content { padding: 20px; }
+        .card-title { font-size: 1.3rem; margin-bottom: 10px; color: #ff69b4; }
+
+        /* コンタクト */
+        #contact { text-align: center; padding: 100px 0; }
+        .contact-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background-color: #ff69b4;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+		
+/* ハート型の写真を包んでいる div */
+.hero-photo {
+	/* ★ 1. 横幅を好きなサイズに固定する */
+  /* イラストよりも小さく、名刺サイズくらいにするなら 250px〜300px がおすすめ */
+	width: 280px;
+	/* ★ 2. 高さは自動で調整されるようにする */
+	height: auto;
+	/* ★ 4. 必要に応じて、下の要素との距離を少し開ける */
+	margin-bottom: 30px;
+}
+
+/* その中の img タグ自体 */
+.hero-photo img {
+  /* ★ 5. 親の div (.hero-photo) の幅いっぱいに広げる */
+  width: 100%; 
+  height: auto;
+  
+  /* ★ 6. 必要に応じて、少し影をつけて立体的に見せる */
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); 
+	
+}
+/* 3つのセットを包んでいる親要素を横並びにする */
+.hobby-photos {
+    display: flex;          /* 横並びにする魔法の言葉 */
+    justify-content: center; /* 中央に寄せる */
+    gap: 30px;              /* セットごとの間隔 */
+    margin-top: 30px;       /* 上の文章との距離 */
+}
+
+/* 各趣味のセット（写真＋文字）を縦に整列させる */
+.hobby-item {
+    display: flex;
+    flex-direction: column; /* 中身（写真と文字）は縦に並べる */
+    align-items: center;    /* 中身を中央揃えにする */
+    width: 150px;           /* 各セットの幅を固定 */
+}
+
+/* 写真のサイズを調整 */
+.hobby-img {
+    width: 100%;            /* hobby-itemの幅いっぱいに広げる */
+    height: 150px;          /* 高さを揃えて正方形にする */
+    object-fit: cover;      /* 写真が歪まないように切り抜く */
+    border-radius: 20px;    /* 角を丸くする */
+    border: 3px solid #fff; /* 白い枠線 */
+    margin-bottom: 10px;    /* 写真と下の文字の隙間 */
+}
+
+/* 説明文のスタイル */
+.hobby-caption {
+    font-size: 13px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;              /* 余計な隙間を消す */
+}
+.hobby-title {
+    font-size: 28px;      /* h1よりは少し小さく、でも存在感あるサイズ */
+    color: #ffffff;       /* パキッと白で目立たせる */
+    font-weight: bold;    /* 太文字にして強調 */
+    margin-top: 50px;     /* 上の文章との間隔を広めにとる */
+    margin-bottom: 20px;  /* 下の写真との間隔 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* ほんのり影をつけて浮かせる */
+}
+		.skill-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: #fff; /* 背景を白にして、上のピンクとメリハリをつける */
+}
+
+.section-title {
+    font-size: 28px;
+    color: #ff69b4; /* ロゴと同じピンク */
+    margin-bottom: 30px;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 中央寄せ */
+    gap: 19px;               /* ボタン同士のスキマ */
+    max-width: 500px;        /* ★重要：横幅をあえて制限して、綺麗に2行に落ちるようにします */
+    margin: 0 auto;
+}
+.skill-list span {
+    /* 1. 飴のようなツヤを出すグラデーション */
+    background: linear-gradient(135deg, #fff5f7 0%, #ffb6c1 50%, #ff69b4 100%);
+    /* 2. 文字の色を白にしてパキッとさせる */
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 文字を少し浮かせる */
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    
+    /* 3. ぷっくりした立体感を出す影 */
+    box-shadow: 
+        inset -2px -2px 6px rgba(0, 0, 0, 0.1), /* 内側の影で丸みを出す */
+        0 4px 10px rgba(255, 105, 180, 0.3);    /* 外側のピンクの光 */
+    
+    transition: 0.3s;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* 表面の反射っぽい細い枠線 */
+	
+    font-size: 12px;   /* 文字を少し小さく */
+    /* その他のデザイン設定はそのまま */
+}
+
+/* マウスを乗せた時の動き（ぷるんとする演出） */
+.skill-list span:hover {
+    transform: translateY(-3px) scale(1.05); /* 少し浮いて大きくなる */
+    filter: brightness(1.1); /* 少し明るくする */
+    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.5);
+}
+#back-to-top {
+    position: fixed;    /* 画面の右下に固定 */
+    bottom: 30px;       /* 下からの距離 */
+    right: 30px;        /* 右からの距離 */
+    width: 60px;        /* ★ここ！サイズを小さく固定 */
+    height: 60px;       /* ★高さも合わせて正方形に */
+    z-index: 9999;      /* 一番手前に出す */
+    transition: transform 0.3s ease;
+    display: block;     /* 確実に表示させる */
+}
+
+#back-to-top img {
+    width: 100%;        /* 親(60px)の幅に合わせる */
+    height: auto;       /* 高さは自動 */
+    display: block;
+}
+
+/* マウスを乗せた時にぷるんとさせる */
+#back-to-top:hover {
+    transform: scale(1.2); /* 少し大きく */
+}
+
+/* ★最初からずっと表示させておくならこれだけでOK！
+   もし「スクロールした時だけ出したい」ならJavaScriptが必要です */
+		html {
+    scroll-behavior: smooth;
+}
+		.profile-cloud {
+    /* 雲の画像を背景に設定 */
+    background-image: url("phot/kumo.png");
+    background-size: contain;    /* 画像の形を崩さず全体を入れる */
+    background-repeat: no-repeat; /* 1個だけ表示 */
+    background-position: center;  /* 真ん中に配置 */
+    
+    /* 中の文字を整える */
+    padding: 60px 20px;          /* 雲の中に文字が収まるように上下の余白を多めに */
+    margin: 20px auto;           /* 上下の隙間を作り、中央寄せ */
+    width: 100%;                 /* 幅いっぱい */
+    max-width: 500px;            /* 雲が大きくなりすぎないように制限（お好みで！） */
+    display: flex;
+    flex-direction: column;      /* 中のh3を縦に並べる */
+    align-items: center;         /* 文字を中央揃え */
+}
+
+/* 雲の中の文字のデザイン */
+.profile-cloud h3 {
+    margin: 5px 0;               /* 文字同士の上下の隙間 */
+    color: #ff69b4;              /* 文字を濃いピンクにすると雲に映えるよ！ */
+    font-size: 18px;             /* サイズはお好みで */
+    text-shadow: none;           /* 背景が薄いピンクなので影はない方が綺麗かも */
+	font-weight: bold;
+}
+		.hero-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;      /* 雲と写真の間のスキマ */
+    flex-wrap: wrap; 
+}
+
+/* 雲のプロフィールエリア */
+.hero-text {
+    flex: 1;
+    max-width: 450px;
+    text-align: center; /* 雲の中の文字を中央に */
+}
+
+/* 雲の背景画像を調整（吹き出しっぽく見せる） */
+/* 1. 親要素：雲と写真を並べる箱 */
+.hero-flex-box {
+    display: flex;
+    flex-direction: row-reverse; /* 写真が左、雲が右 */
+    justify-content: center;    /* ★左右の真ん中に寄せる */
+    align-items: center;        /* ★上下の真ん中に揃える */
+    gap: 0;                     /* 重なりは一旦0にして、必要なら微調整 */
+    width: 100%;                /* 横幅いっぱい使う */
+    margin: 40px 0;             /* 上下の余白 */
+    padding: 0;
+    
+    /* ★重要：以前の !important や left を完全に無効化 */
+    position: static !important; 
+}
+
+/* 2. 雲の設定 */
+.profile-cloud {
+    background-image: url("phot/kumo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 450px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* ★左に寄る原因（leftやmargin）をリセット */
+    position: relative;
+    left: 0 !important;
+    margin: 0 !important; 
+    z-index: 2;
+	
+}
+/* 3. 顔写真エリア */
+.hero-photo {
+    width: 300px;
+    flex-shrink: 0;
+    
+    /* ★左に寄る原因をリセット */
+    margin: 0 !important;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-photo img {
+    width: 100%;
+    height: auto;
+}
+
+/* 雲の中の文字に余計な余白がつかないように */
+.profile-cloud h3 {
+    margin: 2px 0;
+    padding: 0;
+}
+/* 雲の中の文字に余計な余白がつかないようにする */
+.profile-cloud h3 {
+    margin: 5px 0 !important;
+    padding: 0 !important;
+    width: 100%;
+}
+.hero-photo {
+    margin-left: -20px !important;
+    flex-shrink: 0 !important;
+}
+/* 下の文章エリア */
+.hero-description {
+	text-align: center;
+	width: 100%;
+	font-weight: bold;
+}
+
+.blog-button {
+    display: inline-block;
+    margin-top: 15px;
+    color: #fff;
+    text-decoration: underline;
+	display: inline-block;
+    background-color: #ff69b4; /* ハートと同じ濃いピンク */
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 50px; /* カプセル型 */
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #d05090; /* 立体的なボタンにする */
+    transition: 0.2s;
+}
+
+.blog-button:active {
+    transform: translateY(2px); /* 押した時に少し沈む */
+    box-shadow: none;
+}
+		/* 元の #back-to-top を以下のように書き換えてください */
+#back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    z-index: 9999;
+    transition: all 0.5s ease; /* ふわっと出すためのアニメーション */
+    
+    /* ★ここがポイント：最初は隠しておく */
+    opacity: 0;           /* 透明にする */
+    visibility: hidden;    /* クリックもできないようにする */
+    transform: translateY(20px); /* 少し下に下げておく（出るときに上がる演出） */
+}
+
+/* ★「表示された時」の見た目 */
+#back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* 元の位置に戻る */
+}
+		/* 画面の幅が768px以下（スマホ・タブレット）になった時の設定 */
+@media screen and (max-width: 768px) {
+    
+    /* 1. 雲と写真を縦に並べる */
+    .hero-flex-box {
+        flex-direction: column !important; /* 縦並びに強制変更 */
+        align-items: center !important;
+    }
+
+    /* 2. 雲の位置調整をリセット */
+    .profile-cloud {
+        flex: none;
+        width: 100%;
+        max-width: 350px; /* スマホで雲が大きすぎないように */
+        left: 0 !important; /* 横にずらしていたのを真ん中に戻す */
+        margin-bottom: 20px;
+    }
+
+    /* 3. 写真の位置調整をリセット */
+    .hero-photo {
+        margin-left: 0 !important;
+        flex: none;
+        width: 280px; /* 写真のサイズをスマホ用に調整 */
+    }
+
+    /* 4. 趣味（My favorite）のセクションを縦にする */
+    .hobby-photos {
+        flex-direction: column; /* 縦に並べる */
+        align-items: center;
+        gap: 40px;
+    }
+
+    /* 5. ヘッダーのメニューも縦、または非表示にする（簡易版：中央寄せ） */
+    nav ul {
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 0 10px;
+    }
+
+    /* 文字サイズの微調整 */
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
+		/* --- ここから貼り付け --- */
+
+/* 1. ヒーローセクションの設定を修正 */
+.hero {
+    /* 今の設定はそのまま残す */
+    background-color: #ffb6c1;
+    color: #fff;
+    text-align: center;
+    border-radius: 0 0 50px 50px;
+    padding: 100px 0;
+    background-image: repeating-linear-gradient(45deg, #ffb6c1, #ffb6c1 20px, #ffc0cb 20px, #ffc0cb 40px);
+
+    /* ★魔法の2行を追加！ */
+    position: relative; /* ★飴の位置の基準にする */
+    overflow: hidden;    /* ★はみ出した飴をパッと消す魔法 */
+}
+
+/* 2. 飴エリアをヒーローセクションいっぱいに広げる */
+/* --- ここから貼り付け --- */
+
+/* 1. 飴エリアの設定（z-index を小さく！） */
+.falling-decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;      /* .heroの高さ100% */
+    pointer-events: none;
+    z-index: 1;         /* ★写真や文字（z-index: 2以上）の後ろに降らせる */
+    overflow: hidden;    /* 念のため */
+}
+
+/* 2. シールの基本設定（ループさせるために animation を変更） */
+.seal {
+    position: absolute;
+    top: -100px; /* 画面の上からスタート */
+    width: 40px; 
+    opacity: 0.8;
+    /* ★ infinite を追加して、終わったら最初からループさせる */
+    animation: fall-and-vanish 10s linear infinite; 
+}
+
+/* 3. 写真と雲（プロフィールエリア）を手前に出す */
+.hero-flex-box {
+    /* 今の設定はそのまま */
+    position: relative; /* ★追加：z-index の基準にする */
+    z-index: 10;        /* ★飴（z-index: 1）よりも数字を大きくして手前に */
+}
+
+/* 4. 「境界線で消える」アニメーション（ループ用に調整） */
+@keyframes fall-and-vanish {
+    0% {
+        top: -100px;
+        transform: rotate(0deg);
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8; /* 消える直前まで見せる */
+    }
+    100% {
+        top: 100%; /* ★.heroの下端ギリギリ */
+        transform: rotate(360deg);
+        opacity: 0; /* ★ここで完全に透明にして消す */
+    }
+}
+
+/* 5. 各シールの設定（delayをバラバラにして、連続感を出す！） */
+/* 1セット目 */
+/* 左側エリア */
+/* 左側エリア */
+.s1 { left: 5%;  width: 45px; animation-delay: 0s;   animation-duration: 7s; }  /* 大きめ・速め */
+.s2 { left: 15%; width: 25px; animation-delay: 3s;   animation-duration: 12s; } /* 小さめ・ゆっくり */
+.s3 { left: 25%; width: 40px; animation-delay: 1.5s; animation-duration: 9s; }
+
+/* 中央エリア */
+.s4 { left: 42%; width: 20px; animation-delay: 5s;   animation-duration: 15s; } /* かなり小さい */
+.s5 { left: 50%; width: 55px; animation-delay: 0.5s; animation-duration: 6s; }  /* ドンと大きい */
+.s6 { left: 58%; width: 30px; animation-delay: 4s;   animation-duration: 10s; }
+
+/* 右側エリア */
+.s7 { left: 75%; width: 42px; animation-delay: 2s;   animation-duration: 8s; }
+.s8 { left: 85%; width: 28px; animation-delay: 6s;   animation-duration: 13s; }
+.s9 { left: 95%; width: 50px; animation-delay: 1s;   animation-duration: 7.5s; }
+
+/* 追加分：隙間を埋める */
+.s10 { left: 10%; width: 22px; animation-delay: 7s;  animation-duration: 14s; }
+.s11 { left: 65%; width: 38px; animation-delay: 8s;  animation-duration: 11s; }
+.s12 { left: 80%; width: 48px; animation-delay: 3.5s; animation-duration: 9.5s; }
+		/* --- 前回の s1〜s20 の設定の下に追加 --- */
+
+/* 1. タイトル、説明文、ボタンなどの文字を手前に */
+/* 飴（z-index: 1）よりも大きな数字を設定します。 */
+.hero h1, 
+.hero p, 
+.hero h2, 
+.hero a, 
+.hero-photo, 
+.profile-cloud,
+.skill-section h2,
+.hobby-item {
+    position: relative; /* ★追加：z-indexの基準にする */
+    z-index: 5;         /* ★飴より手前に来る数字を設定 */
+}
+
+/* 2. 特に「My favorite」の下の3枚の写真とそのキャプション（ hobby-item ）を手前に */
+/* 以前 `.hobby-item` に `display: flex;` などを設定しましたが、そこに `position` と `z-index` を追加します。 */
+.hobby-item {
+    position: relative; /* ★z-indexの基準にする */
+    z-index: 5;         /* ★飴より手前に来る数字を設定 */
+}
+		/* カード全体のリンク設定 */
+.card-link {
+    text-decoration: none; /* 下線を消す */
+    color: inherit;        /* 文字色を維持 */
+    display: block;        /* 全体をクリック可能に */
+}
+
+/* 画像を枠いっぱいに表示 */
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;    /* 枠に合わせて綺麗に切り抜く */
+    display: block;
+}
+
+/* ホバー時にカードをふわっとさせる演出（ピンクの影！） */
+.card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(255, 182, 193, 0.6);
+}
+		/* --- ハンバーガーメニューのスタイル --- */
+
+/* PCではボタンを隠す */
+.hamburger {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 30px;
+	height: 25px;
+	cursor: pointer;
+	z-index: 1000;
+	padding-left: 10px;
+}
+
+/* 3本線のデザイン（ピンクの丸みのある線） */
+.hamburger span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background-color:#808080;
+	box-shadow: 1px 1px 1px rgba(255, 105, 180, 0.4);
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+/* --- モバイル表示用の設定（修正版） --- */
+
+@media screen and (max-width: 768px) {
+    /* 1. ヘッダー内のレイアウトを「ロゴを左、×を右」に固定 */
+    header nav {
+        display: flex;
+        justify-content: space-between; /* 両端に配置 */
+        align-items: center;
+        width: 100%;
+        padding: 0 20px; /* 端に寄りすぎないようにパディングを追加 */
+    }
+
+    /* 2. ロゴを左寄せに固定 */
+    .logo {
+        margin: 0;
+        text-align: left;
+        flex-shrink: 0; /* ロゴが潰されないように */
+    }
+
+    /* 3. ハンバーガーボタン（×）を右寄せに固定 */
+    .hamburger {
+        display: flex; /* 表示 */
+        margin: 0;
+        z-index: 1000; /* メニューより手前に */
+    }
+
+    /* 4. 白いメニューエリアを全画面に伸ばす */
+    nav ul {
+        display: none; /* 最初は隠す */
+        flex-direction: column;
+        justify-content: center; /* 項目を全画面の中央に配置 */
+        position: fixed; /* absoluteからfixedに変更して、全画面を完全に覆う */
+        top: 80px; /* ヘッダーの高さ */
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px); /* 100vhからヘッダー高さを引いた分、画面下まで伸ばす */
+        background-color: rgba(255, 255, 255, 0.98); /* ほぼ不透明な白 */
+        padding: 40px 0;
+        z-index: 900; /* ヘッダーより下、ヒーローより上 */
+        overflow-y: auto; /* 長いメニュー用 */
+        box-shadow: none; /* 全画面なので影は不要 */
+    }
+
+    /* 5. active クラスがついた時だけ表示 */
+    nav ul.active {
+        display: flex;
+    }
+
+    /* 6. メニュー項目を中央寄せで、少し大きく */
+    nav ul li {
+        margin: 25px 0; /* 間隔を広げる */
+        text-align: center;
+    }
+
+    nav ul li a {
+        font-size: 1.4rem; /* 文字を少し大きく */
+        color: #ff69b4; /* 可愛いピンクに */
+        font-weight: bold;
+    }
+
+    /* 7. ×マークのアニメーションはそのまま */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-11px) rotate(-45deg);
+    }
+}
+		/* メニューが開いているとき、強制的に非表示にするクラス */
+#back-to-top.menu-active {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none; /* クリックもできないようにする */
+}
+        footer { text-align: center; padding: 40px 0; background: #ffe4e1; color: #ff69b4; }
+    </style>
+</head>
+	
+<body>
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">Aoi's Portfolio</div>
+            
+          <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+          <ul id="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skill">Skill</a></li>
+            <li><a href="#works">Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero" id="about">
+    <div class="container">
+		<div class="falling-decorations">
+    <img src="phot/ame.png" class="seal s1">
+    <img src="phot/ame2.png" class="seal s2">
+    <img src="phot/ame.png" class="seal s3">
+    <img src="phot/ame2.png" class="seal s4">
+	<img src="phot/ame3.png" class="seal s5">
+	<img src="phot/ame4.png" class="seal s6">
+	<img src="phot/ame.png" class="seal s7">
+    <img src="phot/ame.png" class="seal s8">
+    <img src="phot/ame2.png" class="seal s9">
+    <img src="phot/ame3.png" class="seal s10">
+    <img src="phot/ame4.png" class="seal s11">
+    <img src="phot/ame.png" class="seal s12">
+    </div>
+        
+        <div class="hero-flex-box">
+            
+            <div class="profile-cloud">
+                <h3>渡邊 葵</h3>
+                <h3>2000年12月22日生まれ・山羊座・B型</h3>
+            </div>
+
+            <div class="hero-photo">
+                <img src="phot/aoi.png" alt="Aoiのプロフィール写真">
+            </div>
+            
+        </div> <div class="hero-description">
+            <p>可愛いもの、動物、甘いものが大好きです。趣味で絵を描くことも楽しんでいます。<br>
+               素敵なWebサイトを作れるように一生懸命勉強中です！</p>
+            <a href="https://aochan1222-blog.vercel.app/" class="blog-button">ブログへ</a>
+        </div>
+<h2 class="hobby-title">My favorite</h2>
+      <div class="hobby-photos">
+    <div class="hobby-item">
+        <img src="phot/neil.png" alt="ネイル" class="hobby-img">
+        <p class="hobby-caption">ネイル</p>
+    </div>
+    
+    <div class="hobby-item">
+        <img src="phot/irasuto.png" alt="イラスト" class="hobby-img">
+        <p class="hobby-caption">イラスト</p>
+    </div>
+    
+    <div class="hobby-item">
+        <img src="phot/tori.png" alt="鳥" class="hobby-img">
+        <p class="hobby-caption">インコ</p>
+    </div>
+		  
+		   <div class="hobby-item">
+        <img src="phot/mori.png" alt="盛り髪" class="hobby-img">
+        <p class="hobby-caption">派手カワ</p>
+    </div>
+</div>
+
+</section>
+<section id="skill" class="skill-section">
+    <div class="container">
+        <h2 class="section-title">Skill</h2>
+        <div class="skill-list">
+            <span>Dreamweaver</span>
+			<span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Photoshop</span>
+            <span>Figma</span>
+            <span>Illustrator</span>
+            <span>Premiere Pro</span>
+        </div>
+    </div>
+</section>
+<section id="works">
+    <div class="container">
+        <h2>My Works</h2>
+        <div class="works-grid">
+            
+            <div class="card">
+                <a href="suite/BLUE_SEAL(blue)/lp/index.html" target="_blank" class="card-link">
+                    <div class="card-img"><img src="phot/job_.png" alt="Webサイト制作"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Webサイト制作①</h3>
+                        <p>グループ制作で取り組んだ、求職者と企業をつなぐマッチングサービス「Job Matching」の紹介ページです。</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="suite/ElectricParade/index.html" target="_blank" class="card-link">
+                    <div class="card-img"><img src="phot/logo2.png" alt="Webサイト制作②"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Webサイト制作②</h3>
+                        <p>グループ制作で担当した「success様」のコーポレートサイトです。</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="suite/pickles_/index.html" target="_blank" class="card-link">
+                    <div class="card-img"><img src="phot/Pickles.png" alt="Webサイト制作③"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">Webサイト制作③</h3>
+                        <p>西洋風漬物ピクルスランディングページ</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="project4.html" target="_blank" class="card-link">
+                    <div class="card-img"><img src="images/work4.jpg" alt="バナー制作"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">バナーデザイン</h3>
+                        <p>Photoshopで制作したバナーまとめです。</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="project5.html" target="_blank" class="card-link">
+                    <div class="card-img"><img src="images/work5.jpg" alt="制作物まとめ"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">ロゴ・スタンプまとめ</h3>
+                        <p>ロゴ、ピクトグラム、LINEスタンプなどのグラフィック作品です。</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="project6.html" target="_blank" class="card-link">
+                    <div class="card-img"><img src="images/work6.jpg" alt="動画制作"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">動画制作</h3>
+                        <p>Premiere Proを使用して制作した動画です。</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <h2>Contact</h2>
+        <p>お気軽にご連絡ください！</p>
+        <a href="mailto:example@mail.com" class="contact-button">メールを送る</a>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Aoi. Made with ♥</p>
+</footer>
+<a href="#" id="back-to-top">
+    <img src="phot/too_.png" alt="TOPへ戻る">
+</a>
+<script type="text/javascript" src="jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="slick.min.js"></script>
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    // ボタンをクリックしたら 'active' クラスをつけ外しする
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // メニューのリンクをクリックしたら、メニューを閉じる
+    document.querySelectorAll('#nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+		
+		// さっきのハンバーガーメニューのコードの下に貼り付けてね！
+
+window.addEventListener('scroll', () => {
+    const backToTop = document.getElementById('back-to-top');
+    
+    // 300px以上スクロールしたら 'show' クラスをつける
+    if (window.scrollY > 500) {
+        backToTop.classList.add('show');
+    } else {
+        backToTop.classList.remove('show');
+    }
+});
+	
+</script>
+</body>
+</html>
